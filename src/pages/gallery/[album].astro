@@ -2,6 +2,7 @@
 import { Icon } from "astro-icon/components";
 import EncryptedContent from "@/components/features/EncryptedContent.astro";
 import PhotoCard from "@/components/pages/gallery/PhotoCard.astro";
+import Lightbox from "@/components/pages/gallery/Lightbox.svelte";
 import { galleryConfig, siteConfig } from "@/config";
 import I18nKey from "@/i18n/i18nKey";
 import { i18n } from "@/i18n/translation";
@@ -139,7 +140,7 @@ const coverLqipProps = cover
               style={`column-count: 2; column-gap: 0.75rem; --col-width: ${columnWidth}px;`}
             >
               {photos.map((photo) => (
-                <PhotoCard src={photo} albumId={albumMeta.id} />
+                <PhotoCard src={photo} />
               ))}
             </div>
           </EncryptedContent>
@@ -149,7 +150,7 @@ const coverLqipProps = cover
             style={`column-count: 2; column-gap: 0.75rem; --col-width: ${columnWidth}px;`}
           >
             {photos.map((photo) => (
-              <PhotoCard src={photo} albumId={albumMeta.id} />
+              <PhotoCard src={photo} />
             ))}
           </div>
         )
@@ -163,3 +164,22 @@ const coverLqipProps = cover
   </div>
 
 </MainGridLayout>
+
+<!-- 图片灯箱 - 放在 Layout 外部避免布局约束 -->
+<Lightbox client:load photos={photos} />
+
+<script is:inline>
+  // 点击照片触发灯箱
+  document.addEventListener("click", function(e) {
+    var trigger = e.target.closest(".gallery-photo-trigger");
+    if (!trigger) return;
+    var lb = window["__lightbox"];
+    if (!lb) return;
+    e.preventDefault();
+    var allTriggers = document.querySelectorAll(".gallery-photo-trigger");
+    var index = Array.prototype.indexOf.call(allTriggers, trigger);
+    if (index >= 0) {
+      lb.open(index);
+    }
+  });
+</script>

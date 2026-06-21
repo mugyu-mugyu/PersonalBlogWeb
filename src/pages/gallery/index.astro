@@ -89,7 +89,7 @@ const allTags = [...new Set(albums.flatMap((a) => a.tags || []))].sort();
       <!-- 相册卡片网格 -->
       {albums.length > 0 ? (
         <>
-          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 my-4">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 my-4">
             {albums.map((album) => (
               <AlbumCard
                 id={album.id}
