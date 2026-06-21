@@ -33,7 +33,7 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
 		],
 	});
 
-	// 友链
+	// 日常
 	links.push(LinkPresets.Friends);
 
 	// 留言板
