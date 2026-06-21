@@ -44,67 +44,178 @@ import { url } from "@/utils/url-utils";
     <div class="text-center text-neutral-400 mb-2.5 transition">
       {profileConfig.bio}
     </div>
-        <div class="flex flex-wrap gap-2 justify-center mb-1">
-            {profileConfig.links.length > 1 && profileConfig.links.map(item =>
-                    {
-                    const showName = item.showName;
-                    const className = showName 
-                        ? "btn-regular rounded-lg h-10 gap-2 px-3 font-bold active:scale-95" 
-                        : "btn-regular rounded-lg h-10 w-10 active:scale-90";
+    <div class="flex flex-wrap gap-2 justify-center mb-1">
+      {profileConfig.links.map(item => {
+        const showName = item.showName;
+        const className = showName
+          ? "btn-regular rounded-lg h-10 gap-2 px-3 font-bold active:scale-95"
+          : "btn-regular rounded-lg h-10 w-10 active:scale-90";
 
-                    if (item.url.startsWith("mailto:")) {
-                        const encodedEmail = Buffer.from(item.url.replace("mailto:", "")).toString("base64");
-                        return <a rel="me" aria-label={item.name} href="#" data-encoded-email={encodedEmail} onclick={`
-                                            (function() {
-                                                const encodedEmail = this.getAttribute('data-encoded-email');
-                                                const decodedEmail = atob(encodedEmail);
-                                                this.href = 'mailto:' + decodedEmail;
-                                                this.removeAttribute('data-encoded-email');
-                                                this.removeAttribute('onclick');
-                                                this.click();
-                                                return false;
-                                            }).call(this);
-                                        `.replace(/\s+/g, " ").trim()
-                                    },
-                                    class={className}>
-                            <Icon is:inline name={item.icon} class="text-[1.5rem]"></Icon>
-                            {showName && item.name}
-                        </a>
-                    } else {
-                        return <a rel="me" aria-label={item.name} href={item.url} target="_blank" class={className}>
-                            <Icon is:inline name={item.icon} class="text-[1.5rem]"></Icon>
-                            {showName && item.name}
-                        </a>
-                    }
-                    }
-            )}
-            {profileConfig.links.length == 1 && (function(item){
-                if (item.url.startsWith("mailto:")) {
-                        const encodedEmail = Buffer.from(item.url.replace("mailto:", "")).toString("base64");
-                        return <a rel="me" aria-label={item.name} href="#" data-encoded-email={encodedEmail} onclick={`
-                                            (function() {
-                                                const encodedEmail = this.getAttribute('data-encoded-email');
-                                                const decodedEmail = atob(encodedEmail);
-                                                this.href = 'mailto:' + decodedEmail;
-                                                this.removeAttribute('data-encoded-email');
-                                                this.removeAttribute('onclick');
-                                                this.click();
-                                                return false;
-                                            }).call(this);
-                                        `.replace(/\s+/g, " ").trim()
-                                    },
-                                    class="btn-regular rounded-lg h-10 gap-2 px-3 font-bold active:scale-95">
-                            <Icon is:inline name={item.icon} class="text-[1.5rem]"></Icon>
-                            {item.name}
-                        </a>
-                    } else {
-                        return <a rel="me" aria-label={item.name} href={item.url} target="_blank"
-                                            class="btn-regular rounded-lg h-10 gap-2 px-3 font-bold active:scale-95">
-                                <Icon is:inline name={item.icon} class="text-[1.5rem]"></Icon>
-                                {item.name}
-                            </a>
-                    }
-            })(profileConfig.links[0])}
-        </div>
+        // 有 popupText 的链接：渲染为按钮，点击弹窗显示文本
+        if (item.popupText) {
+          return (
+            <button
+              type="button"
+              aria-label={item.name}
+              class={className}
+              data-popup-text={item.popupText}
+            >
+              <Icon is:inline name={item.icon} class="text-[1.5rem]"></Icon>
+              {showName && item.name}
+            </button>
+          );
+        }
+
+        // 普通链接
+        if (item.url.startsWith("mailto:")) {
+          const encodedEmail = Buffer.from(item.url.replace("mailto:", "")).toString("base64");
+          return (
+            <a rel="me" aria-label={item.name} href="#" data-encoded-email={encodedEmail} class={className}>
+              <Icon is:inline name={item.icon} class="text-[1.5rem]"></Icon>
+              {showName && item.name}
+            </a>
+          );
+        }
+
+        return (
+          <a rel="me" aria-label={item.name} href={item.url} target="_blank" class={className}>
+            <Icon is:inline name={item.icon} class="text-[1.5rem]"></Icon>
+            {showName && item.name}
+          </a>
+        );
+      })}
+    </div>
   </div>
 </div>
+
+<!-- 文本弹窗 -->
+<div id="profile-popup" class="profile-popup-hidden fixed inset-0 z-[9999] flex items-center justify-center transition-opacity duration-200">
+  <div id="profile-popup-backdrop" class="absolute inset-0 bg-black/40 backdrop-blur-sm"></div>
+  <div class="relative bg-(--card-bg) rounded-2xl shadow-2xl p-6 mx-4 max-w-sm w-full z-10 transform transition-transform duration-200">
+    <p id="profile-popup-text" class="text-center text-(--text) text-base leading-relaxed mb-5 break-all select-all"></p>
+    <div class="flex gap-3 justify-center">
+      <button id="profile-popup-copy" class="btn-regular rounded-lg h-9 px-4 text-sm font-medium active:scale-95 flex items-center gap-1.5">
+        <Icon is:inline name="fa7-regular:copy" class="text-[0.875rem]"></Icon>
+        <span>复制</span>
+      </button>
+      <button id="profile-popup-close" class="btn-primary rounded-lg h-9 px-4 text-sm font-medium active:scale-95">
+        关闭
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function initProfilePopup() {
+    const popup = document.getElementById("profile-popup");
+    const popupText = document.getElementById("profile-popup-text");
+    const popupCopy = document.getElementById("profile-popup-copy");
+    const popupClose = document.getElementById("profile-popup-close");
+    const popupBackdrop = document.getElementById("profile-popup-backdrop");
+    if (!popup || !popupText) return;
+
+    let currentText = "";
+
+    function showPopup(text: string) {
+      currentText = text;
+      if (popupText) popupText.textContent = text;
+      popup?.classList.remove("profile-popup-hidden");
+      popup?.classList.add("profile-popup-visible");
+    }
+
+    function hidePopup() {
+      popup?.classList.remove("profile-popup-visible");
+      popup?.classList.add("profile-popup-hidden");
+    }
+
+    // 委托点击事件：所有带 data-popup-text 的按钮
+    document.addEventListener("click", (e) => {
+      const target = e.target as HTMLElement;
+      const btn = target.closest("[data-popup-text]") as HTMLElement | null;
+      if (btn) {
+        e.preventDefault();
+        e.stopPropagation();
+        const text = btn.getAttribute("data-popup-text") || "";
+        showPopup(text);
+      }
+    });
+
+    // 关闭按钮
+    popupClose?.addEventListener("click", hidePopup);
+    popupBackdrop?.addEventListener("click", hidePopup);
+
+    // 复制按钮
+    popupCopy?.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(currentText);
+        const span = popupCopy?.querySelector("span");
+        if (span) {
+          const originalText = span.textContent;
+          span.textContent = "已复制";
+          setTimeout(() => {
+            span.textContent = originalText;
+          }, 1500);
+        }
+      } catch {
+        // Fallback for older browsers
+        const textarea = document.createElement("textarea");
+        textarea.value = currentText;
+        textarea.style.position = "fixed";
+        textarea.style.opacity = "0";
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+      }
+    });
+
+    // ESC 关闭
+    document.addEventListener("keydown", (e) => {
+      if (e.key === "Escape" && popup?.classList.contains("profile-popup-visible")) {
+        hidePopup();
+      }
+    });
+
+    // 处理 mailto 反爬虫
+    document.addEventListener("click", (e) => {
+      const target = e.target as HTMLElement;
+      const mailLink = target.closest("[data-encoded-email]") as HTMLElement | null;
+      if (mailLink) {
+        e.preventDefault();
+        const encodedEmail = mailLink.getAttribute("data-encoded-email");
+        if (encodedEmail) {
+          const decodedEmail = atob(encodedEmail);
+          window.location.href = "mailto:" + decodedEmail;
+        }
+      }
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", initProfilePopup);
+  } else {
+    initProfilePopup();
+  }
+
+  // Swup 页面切换后重新初始化
+  document.addEventListener("swup:contentReplaced", initProfilePopup);
+  document.addEventListener("swup:content:replace", initProfilePopup);
+  document.addEventListener("swup:page:view", initProfilePopup);
+</script>
+
+<style is:global>
+  .profile-popup-hidden {
+    opacity: 0;
+    pointer-events: none;
+  }
+  .profile-popup-hidden > .relative {
+    transform: scale(0.9);
+  }
+  .profile-popup-visible {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .profile-popup-visible > .relative {
+    transform: scale(1);
+  }
+</style>
