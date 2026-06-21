@@ -17,7 +17,6 @@
 > 
 > [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/Z8Z41NQALY)
 >
-> **QQ交流群：[1087127207](https://qm.qq.com/q/ZGsFa8qX2G)**
 > 
 > ![GitHub License](https://img.shields.io/github/license/CuteLeaf/Firefly)
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/CuteLeaf/Firefly)
@@ -31,7 +30,6 @@
 
 🚀 Быстрое руководство:
 [**🖥️Демо**](https://firefly.cuteleaf.cn/) /
-[**📝Документация**](https://docs-firefly.cuteleaf.cn/) /
 [**🍀Мой блог**](https://blog.cuteleaf.cn)
 
 ⚡ Генерация статического сайта: Сверхбыстрая загрузка и SEO-оптимизация на основе Astro
@@ -144,7 +142,6 @@
 
 ## 📖 Настройка
 
-> 📚 **Подробная документация по настройке**: См. [документацию Firefly](https://docs-firefly.cuteleaf.cn/) для полного руководства по настройке
 
 ### Установка языка сайта
 

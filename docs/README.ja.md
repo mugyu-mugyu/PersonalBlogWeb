@@ -17,7 +17,6 @@
 > 
 > [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/Z8Z41NQALY)
 >
-> **QQ交流群：[1087127207](https://qm.qq.com/q/ZGsFa8qX2G)**
 > 
 > ![GitHub License](https://img.shields.io/github/license/CuteLeaf/Firefly)
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/CuteLeaf/Firefly)
@@ -31,7 +30,6 @@
 
 🚀 クイックガイド：
 [**🖥️ライブデモ**](https://firefly.cuteleaf.cn/) /
-[**📝ドキュメント**](https://docs-firefly.cuteleaf.cn/) /
 [**🍀私のブログ**](https://blog.cuteleaf.cn)
 
 ⚡ 静的サイト生成：Astroベースの超高速読み込み速度とSEO最適化
@@ -144,7 +142,6 @@
 
 ## 📖 設定説明
 
-> 📚 **詳細な設定ドキュメント**：[Fireflyドキュメント](https://docs-firefly.cuteleaf.cn/)で完全な設定ガイドを確認してください
 
 ### ウェブサイトの言語設定
 
