@@ -53,11 +53,11 @@ export const ja: Translation = {
 	[Key.commentNotConfigured]: "コメントシステムが設定されていません",
 	[Key.guestbookCommentHint]:
 		"設定ファイルでコメントシステムをまだ有効にしていません。有効にすると、訪問者がここにメッセージを残せるようになります",
-	[Key.friends]: "友達",
+	[Key.friends]: "日常",
 	[Key.friendsDescription]:
-		"ここは私の友達です、お互いに訪問して交流することを歓迎します",
-	[Key.searchFriends]: "友達を検索...",
-	[Key.friendsEmpty]: "まだ友達がいません",
+		"日常生活の小さな瞬間を記録し、毎日の小さな幸せを共有します",
+	[Key.searchFriends]: "日常を検索...",
+	[Key.friendsEmpty]: "まだ日常の記録がありません",
 	[Key.guestbook]: "ゲストブック",
 	[Key.guestbookDescription]:
 		"ここに足跡を残して、あなたの考えや提案を共有してください",

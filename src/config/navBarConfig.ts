@@ -143,9 +143,9 @@ export const LinkPresets: Record<string, NavBarLink> = {
 		icon: "material-symbols:tag-rounded",
 	},
 	Friends: {
-		name: "友链",
+		name: "日常",
 		url: "/friends/",
-		icon: "material-symbols:group",
+		icon: "material-symbols:auto-stories",
 		pageKey: "friends",
 	},
 	Sponsor: {
