@@ -50,17 +50,8 @@ const getDynamicNavBarConfig = (): NavBarConfig => {
 
 			// 番组计划
 			LinkPresets.Bangumi,
-		],
-	});
 
-	// 关于及其子菜单
-	links.push({
-		name: "关于",
-		url: "#",
-		icon: "material-symbols:info",
-		children: [
-
-			// 关于页面
+			// 关于我
 			LinkPresets.About,
 		],
 	});
