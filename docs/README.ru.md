@@ -21,7 +21,6 @@
 > 
 > ![GitHub License](https://img.shields.io/github/license/CuteLeaf/Firefly)
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/CuteLeaf/Firefly)
-[![Afdian Sponsor](https://img.shields.io/badge/Afdian-Поддержать%20автора-ff69b4.svg)](https://ifdian.net/a/cuteleaf)
 
 </div>
 
@@ -189,7 +188,6 @@ src/
 │   ├── plantumlConfig.ts         # Конфигурация диаграмм PlantUML
 │   ├── profileConfig.ts          # Конфигурация профиля пользователя
 │   ├── sidebarConfig.ts          # Конфигурация макета боковой панели
-│   └── sponsorConfig.ts          # Конфигурация спонсоров
 ```
 
 
