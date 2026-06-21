@@ -67,7 +67,7 @@ import { url } from "@/utils/url-utils";
         }
 
         // 普通链接
-        if (item.url.startsWith("mailto:")) {
+        if (item.url?.startsWith("mailto:")) {
           const encodedEmail = Buffer.from(item.url.replace("mailto:", "")).toString("base64");
           return (
             <a rel="me" aria-label={item.name} href="#" data-encoded-email={encodedEmail} class={className}>
@@ -77,6 +77,14 @@ import { url } from "@/utils/url-utils";
           );
         }
 
+        if (!item.url) {
+          return (
+            <span aria-label={item.name} class={className}>
+              <Icon is:inline name={item.icon} class="text-[1.5rem]"></Icon>
+              {showName && item.name}
+            </span>
+          );
+        }
         return (
           <a rel="me" aria-label={item.name} href={item.url} target="_blank" class={className}>
             <Icon is:inline name={item.icon} class="text-[1.5rem]"></Icon>
