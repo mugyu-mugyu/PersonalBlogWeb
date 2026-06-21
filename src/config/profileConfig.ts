@@ -21,12 +21,14 @@ export const profileConfig: ProfileConfig = {
 	// `pnpm add @iconify-json/<icon-set-name>`
 	// showName: true 时显示图标和名称，false 时只显示图标
 	// popupText: 设置后点击弹出文本弹窗，不再跳转到 url
+	// popupCopyText: 复制时使用的文本，不设则复制 popupText 全文
 	links: [
 		{
 			name: "qq",
 			icon: "fa7-brands:qq",
 			showName: false,
 			popupText: "QQ：3217157126",
+			popupCopyText: "3217157126",
 		},
 		{
 			name: "GitHub",
@@ -37,9 +39,9 @@ export const profileConfig: ProfileConfig = {
 		{
 			name: "Email",
 			icon: "fa7-solid:envelope",
-			url: "whutwsf@whut.edu.cn",
 			showName: false,
 			popupText: "邮箱：whutwsf@whut.edu.cn",
+			popupCopyText: "whutwsf@whut.edu.cn",
 		},
 		{
 			name: "RSS",

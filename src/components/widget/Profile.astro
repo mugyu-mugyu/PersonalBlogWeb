@@ -59,6 +59,7 @@ import { url } from "@/utils/url-utils";
               aria-label={item.name}
               class={className}
               data-popup-text={item.popupText}
+              data-popup-copy-text={item.popupCopyText || item.popupText}
             >
               <Icon is:inline name={item.icon} class="text-[1.5rem]"></Icon>
               {showName && item.name}
@@ -122,11 +123,11 @@ import { url } from "@/utils/url-utils";
     const popupBackdrop = document.getElementById("profile-popup-backdrop");
     if (!popup || !popupText) return;
 
-    let currentText = "";
+    let currentCopyText = "";
 
-    function showPopup(text: string) {
-      currentText = text;
-      if (popupText) popupText.textContent = text;
+    function showPopup(displayText: string, copyText: string) {
+      currentCopyText = copyText;
+      if (popupText) popupText.textContent = displayText;
       popup?.classList.remove("profile-popup-hidden");
       popup?.classList.add("profile-popup-visible");
     }
@@ -143,8 +144,9 @@ import { url } from "@/utils/url-utils";
       if (btn) {
         e.preventDefault();
         e.stopPropagation();
-        const text = btn.getAttribute("data-popup-text") || "";
-        showPopup(text);
+        const displayText = btn.getAttribute("data-popup-text") || "";
+        const copyText = btn.getAttribute("data-popup-copy-text") || displayText;
+        showPopup(displayText, copyText);
       }
     });
 
@@ -155,7 +157,7 @@ import { url } from "@/utils/url-utils";
     // 复制按钮
     popupCopy?.addEventListener("click", async () => {
       try {
-        await navigator.clipboard.writeText(currentText);
+        await navigator.clipboard.writeText(currentCopyText);
         const span = popupCopy?.querySelector("span");
         if (span) {
           const originalText = span.textContent;
@@ -167,7 +169,7 @@ import { url } from "@/utils/url-utils";
       } catch {
         // Fallback for older browsers
         const textarea = document.createElement("textarea");
-        textarea.value = currentText;
+        textarea.value = currentCopyText;
         textarea.style.position = "fixed";
         textarea.style.opacity = "0";
         document.body.appendChild(textarea);
