@@ -5,10 +5,10 @@ import I18nKey from "@/i18n/i18nKey";
 import { i18n } from "@/i18n/translation";
 import type { WidgetComponentConfig } from "@/types/config";
 import { getCategoryList } from "@/utils/content-utils";
+import { url } from "@/utils/url-utils";
 
-const categories = await getCategoryList();
-
-const COLLAPSED_HEIGHT = "7.5rem";
+const allCategories = await getCategoryList();
+const categories = allCategories.slice(0, 5);
 
 interface Props {
 	class?: string;
@@ -17,16 +17,10 @@ interface Props {
 }
 const { class: className, style, widgetConfig } = Astro.props;
 
-const collapseThreshold = widgetConfig?.specificConfig?.collapseThreshold;
 const showTitle = widgetConfig?.showTitle !== false;
-const isCollapsed = collapseThreshold
-	? categories.length > collapseThreshold
-	: false;
 ---
 
-<WidgetLayout name={i18n(I18nKey.categories)} showTitle={showTitle} id="categories" isCollapsed={isCollapsed} collapsedHeight={COLLAPSED_HEIGHT}
-                class={className} style={style}
->
+<WidgetLayout name={i18n(I18nKey.categories)} showTitle={showTitle} id="categories" isCollapsed={false} class={className} style={style}>
     {categories.map((c) =>
         <ButtonLink
             url={c.url}
@@ -36,4 +30,10 @@ const isCollapsed = collapseThreshold
             {c.name.trim()}
         </ButtonLink>
     )}
+    <a
+        href={url("/categories/")}
+        class="btn-regular rounded-lg h-10 gap-2 px-3 font-bold active:scale-95 mt-1 flex items-center justify-center text-sm text-(--primary)"
+    >
+        {i18n(I18nKey.more)}
+    </a>
 </WidgetLayout>

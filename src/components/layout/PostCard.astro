@@ -5,10 +5,8 @@ import { Icon } from "astro-icon/components";
 import CoverImage from "@/components/common/CoverImage.astro";
 import PostMetadata from "@/components/layout/PostMeta.astro";
 import { siteConfig } from "@/config";
-import I18nKey from "@/i18n/i18nKey";
-import { i18n } from "@/i18n/translation";
 import { getApiUrlList, processCoverImageSync } from "@/utils/image-utils";
-import { getFileDirFromPath, getTagUrl } from "@/utils/url-utils";
+import { getFileDirFromPath } from "@/utils/url-utils";
 
 interface Props {
 	class?: string;
@@ -53,7 +51,6 @@ const hasCover =
 
 const coverWidth = "30%";
 
-const showTags = siteConfig.postListLayout.showTags;
 const descriptionLines = Math.max(
 	0,
 	Math.trunc(siteConfig.postListLayout.descriptionLines ?? 2),
@@ -128,30 +125,6 @@ const descriptionText = description || remarkPluginFrontmatter.excerpt || "";
       {descriptionText}
     </div>
 
-    <!-- tags -->
-    {
-      showTags && (
-        <div class="text-sm text-black/30 dark:text-white/30 flex flex-wrap gap-2 transition stats pt-3">
-          {tags &&
-            tags.length > 0 &&
-            tags.map((tag, _i) => (
-              <a
-                href={getTagUrl(tag)}
-                aria-label={`View all posts with the ${tag.trim()} tag`}
-                class="btn-regular h-6 text-xs px-2 py-1 rounded-md
-                         transition-all duration-200 hover:scale-105 active:scale-95"
-              >
-                #{tag.trim()}
-              </a>
-            ))}
-          {!(tags && tags.length > 0) && (
-            <span class="text-(--content-meta) text-xs">
-              #{i18n(I18nKey.noTags)}
-            </span>
-          )}
-        </div>
-      )
-    }
   </div>
   {
     hasCover && (
