@@ -201,6 +201,7 @@ export const zh_TW: Translation = {
 	[Key.pageViews]: "瀏覽量",
 	[Key.pageViewsLoading]: "載入中...",
 	[Key.pageViewsError]: "統計不可用",
+	[Key.viewCount]: "次閱讀",
 
 	// 置頂
 	[Key.pinned]: "置頂",

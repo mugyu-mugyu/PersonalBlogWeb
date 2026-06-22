@@ -207,6 +207,7 @@ export const en: Translation = {
 	[Key.pageViews]: "Views",
 	[Key.pageViewsLoading]: "Loading...",
 	[Key.pageViewsError]: "Stats unavailable",
+	[Key.viewCount]: "views",
 
 	// Pinned
 	[Key.pinned]: "Pinned",

@@ -587,6 +587,28 @@ const siteLang = lang.replace("_", "-");
 
     <!-- Fancybox Manager -->
     <FancyboxManager />
+
+<script is:inline>
+  (function() {
+    var PREFIX = "blog-views-";
+    var path = location.pathname;
+    var parts = path.split("/");
+    if (parts[1] === "posts" && parts[2]) {
+      var k = PREFIX + parts[2];
+      var n = parseInt(localStorage.getItem(k) || "0", 10) + 1;
+      localStorage.setItem(k, String(n));
+    }
+    function show() {
+      document.querySelectorAll(".page-view-count-text[data-post-id]").forEach(function(el) {
+        var pid = el.getAttribute("data-post-id");
+        if (!pid) return;
+        el.textContent = (parseInt(localStorage.getItem(PREFIX + pid) || "0", 10)) + " 次阅读";
+      });
+    }
+    show();
+    document.addEventListener("swup:contentReplaced", function() { setTimeout(show, 50); });
+  })();
+</script>
   </body>
 </html>
 

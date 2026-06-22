@@ -198,6 +198,7 @@ enum I18nKey {
 	pageViews = "pageViews",
 	pageViewsLoading = "pageViewsLoading",
 	pageViewsError = "pageViewsError",
+	viewCount = "viewCount",
 
 	// 置顶
 	pinned = "pinned",
