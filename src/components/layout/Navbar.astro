@@ -201,15 +201,6 @@ function loadButtonScript() {
         };
     }
 
-    let musicBtn = document.getElementById("music-player-switch");
-    if (musicBtn) {
-        musicBtn.onclick = function () {
-            let musicPanel = document.getElementById("music-nav-panel");
-            if (musicPanel) {
-                musicPanel.classList.toggle("float-panel-closed");
-            }
-        };
-    }
 
     // 背景视频播放器控制按钮
     let bgPlayerBtn = document.getElementById("bg-player-toggle");
@@ -268,7 +259,7 @@ function loadButtonScript() {
 
     document.addEventListener("click", function(event) {
         const panels = ["display-setting", "nav-menu-panel", "theme-mode-panel"];
-        const buttons = ["display-settings-switch", "nav-menu-switch", "music-player-switch", "scheme-switch"];
+        const buttons = ["display-settings-switch", "nav-menu-switch", "scheme-switch"];
 
         panels.forEach((id, index) => {
             const panel = document.getElementById(id);
