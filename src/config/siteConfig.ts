@@ -9,7 +9,7 @@ export const siteConfig: SiteConfig = {
 	title: "橙花小猫",
 
 	// 站点副标题
-	subtitle: "个人技术博客",
+	subtitle: "个人博客",
 
 	// 站点 URL
 	site_url: "https://blog.whutwsf.top",
@@ -22,10 +22,6 @@ export const siteConfig: SiteConfig = {
 	keywords: [
 		"橙花小猫",
 		"博客",
-		"技术博客",
-		"静态博客",
-        "研究生",
-        "硬件工程师",
 	],
 
 	// 主题色

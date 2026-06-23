@@ -84,7 +84,7 @@ export const backgroundWallpaper: BackgroundWallpaperConfig = {
 			titleSize: "3.8rem",
 			// 主页横幅副标题
 			subtitle: [
-				"专注分享研究生生活和硬件知识，如果你对研究生生活或者硬件感兴趣，去看看我的文章吧！",
+				"会不定时分享生活和知识，如果你感兴趣的话，去看看我的文章吧！",
 			],
 			// 主页横幅副标题字体大小
 			subtitleSize: "1.5rem",
