@@ -59,6 +59,10 @@ export default defineConfig({
 
 	adapter,
 
+	devToolbar: {
+		enabled: false,
+	},
+
 	// 图像优化配置
 	image: {
 		// 全局响应式布局
