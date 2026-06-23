@@ -53,11 +53,11 @@ export const ru: Translation = {
 	[Key.commentNotConfigured]: "Система комментариев не настроена",
 	[Key.guestbookCommentHint]:
 		"Вы еще не включили систему комментариев в файле конфигурации. После включения посетители смогут оставлять сообщения здесь",
-	[Key.friends]: "Дневник",
-	[Key.friendsDescription]:
+	[Key.daily]: "Дневник",
+	[Key.dailyDescription]:
 		"Запись маленьких моментов повседневной жизни, делюсь маленькими радостями каждого дня",
-	[Key.searchFriends]: "Поиск записей...",
-	[Key.friendsEmpty]: "Записей пока нет.",
+	[Key.searchDaily]: "Поиск записей...",
+	[Key.dailyEmpty]: "Записей пока нет.",
 	[Key.guestbook]: "Гостевая книга",
 	[Key.guestbookDescription]:
 		"Добро пожаловать, оставьте свой след здесь, поделитесь своими мыслями и предложениями",

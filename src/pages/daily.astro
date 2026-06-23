@@ -14,14 +14,14 @@ import { i18n } from "@/i18n/translation";
 import MainGridLayout from "@/layouts/MainGridLayout.astro";
 
 // 检查页面是否启用
-if (!siteConfig.pages.friends) {
+if (!siteConfig.pages.daily) {
 	return Astro.redirect("/404/");
 }
 
-const friendsPost = await getEntry("spec", "friends");
+const friendsPost = await getEntry("spec", "daily");
 
 if (!friendsPost) {
-	throw new Error("friends page content not found");
+	throw new Error("daily page content not found");
 }
 
 const { Content } = await render(friendsPost);
@@ -37,9 +37,9 @@ const items = getEnabledFriends();
 const allTags = [...new Set(items.flatMap((item) => item.tags || []))].sort();
 
 // 页面标题和描述
-const title = friendsPageConfig.title || i18n(I18nKey.friends);
+const title = friendsPageConfig.title || i18n(I18nKey.daily);
 const description =
-	friendsPageConfig.description || i18n(I18nKey.friendsDescription);
+	friendsPageConfig.description || i18n(I18nKey.dailyDescription);
 ---
 
 <MainGridLayout title={title} description={description}>
@@ -80,7 +80,7 @@ const description =
               <input
                 type="text"
                 data-search
-                placeholder={i18n(I18nKey.searchFriends) || "搜索友链..."}
+                placeholder={i18n(I18nKey.searchDaily) || "搜索日常..."}
                 class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-(--line-divider) bg-transparent text-neutral-900 dark:text-neutral-100 placeholder-neutral-400 dark:placeholder-neutral-500 focus:border-(--primary) focus:ring-1 focus:ring-(--primary) outline-none transition-all duration-200 text-sm"
               />
             </div>
@@ -104,12 +104,12 @@ const description =
         )
       }
 
-      <div class="friends-grid my-4">
+      <div class="daily-grid my-4">
         {
           items.length === 0 && (
             <div class="col-span-full flex flex-col items-center justify-center py-12 text-neutral-400 dark:text-neutral-500">
               <Icon is:inline name="material-symbols:group-off-outline" class="text-4xl mb-3" />
-              <div class="text-sm">{i18n(I18nKey.friendsEmpty)}</div>
+              <div class="text-sm">{i18n(I18nKey.dailyEmpty)}</div>
             </div>
           )
         }
@@ -173,7 +173,7 @@ const description =
       </div>
 
       {/* 搜索无结果提示 */}
-      <div class="friends-empty hidden flex-col items-center justify-center py-12 text-neutral-400 dark:text-neutral-500">
+      <div class="daily-empty hidden flex-col items-center justify-center py-12 text-neutral-400 dark:text-neutral-500">
         <Icon is:inline name="material-symbols:search-off-rounded" class="text-4xl mb-3" />
         <div class="text-sm">{i18n(I18nKey.searchNoResults)}</div>
       </div>
@@ -191,7 +191,7 @@ const description =
   <!-- 评论区 -->
   {isCommentEnabled && (
     <div class="mt-4">
-      <Comment post={friendsPost} customPath="/friends/" />
+      <Comment post={friendsPost} customPath="/daily/" />
     </div>
   )}
 

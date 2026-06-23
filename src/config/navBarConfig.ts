@@ -106,9 +106,9 @@ export const LinkPresets: Record<string, NavBarLink> = {
 	},
 	Friends: {
 		name: "日常",
-		url: "/friends/",
+		url: "/daily/",
 		icon: "material-symbols:auto-stories",
-		pageKey: "friends",
+		pageKey: "daily",
 	},
 	Guestbook: {
 		name: "留言",

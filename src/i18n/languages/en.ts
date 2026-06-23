@@ -53,11 +53,11 @@ export const en: Translation = {
 	[Key.commentNotConfigured]: "Comment system not configured",
 	[Key.guestbookCommentHint]:
 		"You have not enabled the comment system in the configuration file yet. After enabling it, visitors will be able to leave messages here",
-	[Key.friends]: "Daily",
-	[Key.friendsDescription]:
+	[Key.daily]: "Daily",
+	[Key.dailyDescription]:
 		"Recording the little moments of daily life, sharing every day's small joys",
-	[Key.searchFriends]: "Search daily...",
-	[Key.friendsEmpty]: "No daily records yet.",
+	[Key.searchDaily]: "Search daily...",
+	[Key.dailyEmpty]: "No daily records yet.",
 	[Key.guestbook]: "Guestbook",
 	[Key.guestbookDescription]:
 		"Welcome to leave your mark here, share your thoughts and suggestions",
