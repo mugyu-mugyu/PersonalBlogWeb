@@ -26,7 +26,7 @@ image: ./images/firefly2.avif
 
 ::github{repo="saicaca/fuwari"}
 
-![Firefly](./images/1.avif)
+![图1 Firefly](./images/1.avif)
 
 
 ## 🚀 技术架构
