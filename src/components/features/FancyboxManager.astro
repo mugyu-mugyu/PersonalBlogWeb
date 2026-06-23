@@ -9,46 +9,20 @@ import "@/styles/fancybox-custom.css";
 
   async function setup() {
     const selectors = [
-      ".custom-md img, #post-cover img, .moment-images img, .gallery-photo-card img",
+      ".custom-md img, #post-cover img, .moment-images img",
       ".moment-images a[data-fancybox]",
       "[data-fancybox]:not(.moment-images a)"
     ];
 
+    // 检查页面是否存在需要 Fancybox 的元素
+    const hasElements = selectors.some(selector => document.querySelector(selector));
 
+    if (!hasElements) return;
 
     // 动态导入资源
     if (!Fancybox) {
       const mod = await import("@fancyapps/ui");
       Fancybox = mod.Fancybox;
-      Fancybox.defaults.l10n = Object.assign(Fancybox.defaults.l10n || {}, {
-        CLOSE: "关闭",
-        NEXT: "下一页",
-        PREV: "上一页",
-        MODAL: "按 ESC 键关闭",
-        ERROR: "出了点问题，请稍后再试。",
-        IMAGE_ERROR: "图片无法加载",
-        ELEMENT_NOT_FOUND: "未找到元素",
-        DOWNLOAD: "下载",
-        GOTO: "跳转到第 %d 页",
-        TOGGLE_FULLSCREEN: "切换全屏",
-        TOGGLE_THUMBS: "切换缩略图",
-        TOGGLE_AUTOPLAY: "切换幻灯片",
-        ZOOM_IN: "放大",
-        ZOOM_OUT: "缩小",
-        TOGGLE_FULL: "切换缩放级别",
-        TOGGLE_1TO1: "原始比例",
-        ITERATE_ZOOM: "切换缩放级别",
-        ROTATE_CCW: "逆时针旋转",
-        ROTATE_CW: "顺时针旋转",
-        FLIP_X: "水平翻转",
-        FLIP_Y: "垂直翻转",
-        RESET: "重置",
-        TOGGLE_FS: "切换全屏",
-        MOVE_UP: "向上移动",
-        MOVE_DOWN: "向下移动",
-        MOVE_LEFT: "向左移动",
-        MOVE_RIGHT: "向右移动",
-      });
     }
 
     // 通用配置
@@ -96,7 +70,7 @@ import "@/styles/fancybox-custom.css";
     };
 
     // 绑定图片
-    Fancybox.bind(".custom-md img, #post-cover img, .moment-images img, .gallery-photo-card img", {
+    Fancybox.bind(".custom-md img, #post-cover img, .moment-images img", {
       ...commonOptions,
       groupAll: true,
       Carousel: {

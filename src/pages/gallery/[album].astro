@@ -139,7 +139,7 @@ const coverLqipProps = cover
               style={`column-count: 2; column-gap: 0.75rem; --col-width: ${columnWidth}px;`}
             >
               {photos.map((photo) => (
-                <PhotoCard src={photo} />
+                <PhotoCard src={photo} albumId={albumMeta.id} />
               ))}
             </div>
           </EncryptedContent>
@@ -149,7 +149,7 @@ const coverLqipProps = cover
             style={`column-count: 2; column-gap: 0.75rem; --col-width: ${columnWidth}px;`}
           >
             {photos.map((photo) => (
-              <PhotoCard src={photo} />
+              <PhotoCard src={photo} albumId={albumMeta.id} />
             ))}
           </div>
         )
