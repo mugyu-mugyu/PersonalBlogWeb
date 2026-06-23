@@ -14,10 +14,7 @@ import "@/styles/fancybox-custom.css";
       "[data-fancybox]:not(.moment-images a)"
     ];
 
-    // 检查页面是否存在需要 Fancybox 的元素
-    const hasElements = selectors.some(selector => document.querySelector(selector));
 
-    if (!hasElements) return;
 
     // 动态导入资源
     if (!Fancybox) {
