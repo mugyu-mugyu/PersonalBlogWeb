@@ -66,22 +66,27 @@ const allTags = [...new Set(albums.flatMap((a) => a.tags || []))].sort();
             />
           </div>
           {allTags.length > 0 && (
-            <div class="flex flex-wrap gap-2">
-              <button
-                data-tag="all"
-                class="btn-regular px-3 py-1.5 rounded-lg bg-(--primary) text-white hover:bg-(--primary) transition-colors duration-200 text-sm font-medium"
-              >
-                {i18n(I18nKey.all)}
-              </button>
-              {allTags.map((tag) => (
+            <div class="gallery-tags-area">
+              <div class="flex flex-wrap gap-2 gallery-tags-list">
                 <button
-                  data-tag={tag}
-                  class="btn-regular px-3 py-1.5 rounded-lg bg-(--btn-regular-bg) text-(--btn-content) hover:bg-(--btn-regular-bg-hover) transition-colors duration-200 text-sm font-medium"
+                  data-tag="all"
+                  class="btn-regular px-3 py-1.5 rounded-lg bg-(--primary) text-white hover:bg-(--primary) transition-colors duration-200 text-sm font-medium"
                 >
-                  {tag}
+                  {i18n(I18nKey.all)}
+                </button>
+                {allTags.map((tag) => (
+                  <button
+                    data-tag={tag}
+                    class="btn-regular px-3 py-1.5 rounded-lg bg-(--btn-regular-bg) text-(--btn-content) hover:bg-(--btn-regular-bg-hover) transition-colors duration-200 text-sm font-medium"
+                  >
+                    {tag}
                 </button>
               ))}
             </div>
+            {allTags.length > 8 && (
+              <button class="gallery-tags-toggle-btn btn-regular px-3 py-1.5 rounded-lg text-sm font-medium mt-2" data-expand-text="..." data-collapse-text="收起">...</button>
+            )}
+          </div>
           )}
         </gallery-filter>
       )}
@@ -119,7 +124,25 @@ const allTags = [...new Set(albums.flatMap((a) => a.tags || []))].sort();
     </div>
   </div>
 
-  <script slot="head" is:inline>
+  <style is:inline>
+    .gallery-tags-list[data-expanded="false"] { max-height: 4.5rem; overflow: hidden; }
+  </style>
+  <script is:inline>
+    (function() {
+      var list = document.querySelector(".gallery-tags-list");
+      var btn = document.querySelector(".gallery-tags-toggle-btn");
+      if (!list || !btn) return;
+      var expanded = false;
+      list.dataset.expanded = "false";
+      btn.addEventListener("click", function(e) {
+        e.stopPropagation();
+        expanded = !expanded;
+        list.dataset.expanded = String(expanded);
+        btn.textContent = expanded ? btn.getAttribute("data-collapse-text") : btn.getAttribute("data-expand-text");
+      });
+    })();
+  </script>
+    <script slot="head" is:inline>
     if (!customElements.get("gallery-filter")) {
       class GalleryFilter extends HTMLElement {
         selectedTag = "all";
@@ -146,7 +169,7 @@ const allTags = [...new Set(albums.flatMap((a) => a.tags || []))].sort();
           if (!button) return;
 
           this.selectedTag = button.dataset.tag;
-          const filters = this.querySelectorAll("button");
+          const filters = this.querySelectorAll("button:not(.gallery-tags-toggle-btn)");
 
           filters.forEach((f) => {
             f.classList.remove("bg-(--primary)", "text-white");
