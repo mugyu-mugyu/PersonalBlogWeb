@@ -4,7 +4,7 @@ published: 2026-06-24
 description: 别只知道波特率，CAN 通信从原理到位时序，一次理解透。
 category: 通信协议
 draft: false
-image: ./can-protocol-images/title.png
+image: ./title.png
 ---
 
 CAN（Controller Area Network，控制器局域网）是一种多主、广播、差分串行总线，核心优势是非破坏性仲裁、高抗干扰、自动错误处理，广泛用于汽车、工业、BMS、机器人等实时控制场景。下面将会从物理层、链路层、仲裁机制、帧结构、位时序进行解析。
