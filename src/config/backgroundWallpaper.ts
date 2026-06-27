@@ -43,9 +43,9 @@ export const backgroundWallpaper: BackgroundWallpaperConfig = {
 		// 桌面背景图片（支持单张或多张随机）
 		// desktop: "assets/images/DesktopWallpaper/d1.avif",
 		desktop: [
-			"https://image.whutwsf.top/file/横屏/1782585257170_125208378_p1_master1200.jpg",
-			"https://image.whutwsf.top/file/横屏/1782585257321_125208378_p2_master1200.jpg",
-            "https://image.whutwsf.top/file/横屏/1782585253201_125208378_p0_master1200.jpg",
+			"https://image.whutwsf.top/file/横屏/1782588499343_133515647_p1_master1200.jpg",
+			"https://image.whutwsf.top/file/横屏/1782588231894_146269572_p17_master1200.jpg",
+            "https://image.whutwsf.top/file/横屏/1782588235687_146269572_p27_master1200.jpg",
             "https://image.whutwsf.top/file/横屏/1782545887831_1782409704663.jpeg",
             "https://image.whutwsf.top/file/横屏/1782539764868_1782521634504.png",
             "https://image.whutwsf.top/file/横屏/1782539763707_illust_138746537_20260627_041507.png",
@@ -70,6 +70,13 @@ export const backgroundWallpaper: BackgroundWallpaperConfig = {
             "https://image.whutwsf.top/file/崩坏：星穹铁道/流萤/1782539180314_132752168_p3.png",
             "https://image.whutwsf.top/file/崩坏：星穹铁道/流萤/1782539180836_132752168_p1.png",
             "https://image.whutwsf.top/file/崩坏：星穹铁道/流萤/1782539266946_15.png",
+            "https://image.whutwsf.top/file/蔚蓝档案/砂狼白子/1782501447712_1782409299798.png",
+            "https://image.whutwsf.top/file/蔚蓝档案/砂狼白子/1782587349661_124860580_p1_master1200.jpg",
+            "https://image.whutwsf.top/file/蔚蓝档案/砂狼白子/1782501447712_1782409299798.png",
+            "https://image.whutwsf.top/file/崩坏：星穹铁道/停云/1782549224503_illust_144740402_20260627_041354.png",
+            "https://image.whutwsf.top/file/鸣潮/达妮娅/1782491915463_1.png",
+            "https://image.whutwsf.top/file/鸣潮/达妮娅/1782491956825_5.png",
+            "https://image.whutwsf.top/file/鸣潮/达妮娅/1782491964596_7.png",
         ],
 		// 背景视频播放地址
 		// 支持单个视频路径（字符串）或多个视频循环（数组）
