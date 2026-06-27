@@ -102,19 +102,6 @@ const path = customPath || (id ? `/posts/${id}` : "");
     </div>
   </div>
 
- <!-- 本地阅读次数统计 -->
-  {
-    !isHome && id && (
-      <div class="flex items-center">
-        <div class="meta-icon">
-          <Icon is:inline name="material-symbols:visibility-outline-rounded" class="text-xl" />
-        </div>
-        <span class="text-50 text-sm font-medium page-view-count-text" data-post-id={id}>
-          ...
-        </span>
-      </div>
-    )
-  }
 
   <!-- Twikoo访问量统计（首页不显示，且文章访问量统计启用时显示） -->
   {

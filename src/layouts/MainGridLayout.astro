@@ -438,16 +438,6 @@ const bannerCarouselInterval = Math.max(
         })();
     </script>
 
-    <!-- 横幅轮播 Ken Burns 样式（放在 body 中，不受 Swup head 替换影响） -->
-    <Fragment set:html={`<style>
-        @keyframes bannerKenBurns {
-            0% { transform: scale(1); }
-            100% { transform: scale(1.1); }
-        }
-        .banner-kb {
-            animation: bannerKenBurns ${bannerCarouselInterval + 1500}ms ease-out forwards;
-        }
-    </style>`} />
     <!-- 横幅图片轮播脚本 -->
     <script is:inline data-swup-ignore-script>
         (function initBannerCarousel() {
@@ -455,6 +445,7 @@ const bannerCarouselInterval = Math.max(
             if (!container) return;
 
             var WALLPAPER_BANNER = 'banner';
+            var WALLPAPER_FULLSCREEN = 'fullscreen';
 
             var mobileCount = parseInt(container.dataset.mobileCount || '0', 10);
             var desktopCount = parseInt(container.dataset.desktopCount || '0', 10);
@@ -463,7 +454,7 @@ const bannerCarouselInterval = Math.max(
             var interval = parseInt(container.dataset.carouselInterval || '8000', 10);
             var switchable = container.dataset.carouselSwitchable === 'true';
             var defaultEnabled = container.dataset.carouselEnabled === 'true';
-            var FADE_MS = 1500;
+            var FADE_MS = 500;
 
             function isCarouselEnabled() {
                 if (!switchable) return defaultEnabled;
@@ -473,7 +464,7 @@ const bannerCarouselInterval = Math.max(
             }
 
             function isBannerWallpaperMode() {
-                return document.documentElement.getAttribute('data-wallpaper-mode') === WALLPAPER_BANNER;
+                var mode = document.documentElement.getAttribute('data-wallpaper-mode'); return mode === WALLPAPER_BANNER || mode === WALLPAPER_FULLSCREEN;
             }
 
             // 收集所有帧内容
@@ -522,15 +513,6 @@ const bannerCarouselInterval = Math.max(
                 return false;
             }
 
-            // 给首张图启动 Ken Burns
-            function applyInitialKB(slotClass) {
-                var slot = container.querySelector('.' + slotClass);
-                if (!slot || isSlotHiddenByBreakpoint(slot)) return;
-                // 移除可能残留的旧 class，重新触发动画
-                slot.classList.remove('banner-kb');
-                void slot.offsetWidth; // 强制回流
-                slot.classList.add('banner-kb');
-            }
 
             function crossfade(slotClass, totalCount, type) {
                 if (totalCount <= 1) return;
@@ -600,11 +582,15 @@ const bannerCarouselInterval = Math.max(
                     }, { once: true });
                 }
 
+                // 旧图迅速放大10%并淡出
+                oldSlot.style.transition = 'transform 300ms ease-in, opacity 500ms ease-out';
+                oldSlot.style.transform = 'scale(1.1)';
+                oldSlot.style.opacity = '0';
+
                 // 立即开始交叉淡入淡出（LQIP 已就绪，可作为过渡层）
                 requestAnimationFrame(function() {
                     requestAnimationFrame(function() {
                         newSlot.style.opacity = '1';
-                        newSlot.classList.add('banner-kb');
                     });
                 });
 
@@ -622,9 +608,6 @@ const bannerCarouselInterval = Math.max(
                 if (!isBannerWallpaperMode()) return;
                 if (!isCarouselEnabled()) return;
 
-                // 首张图立即启动 Ken Burns 缩放
-                applyInitialKB('banner-image-slot-mobile');
-                applyInitialKB('banner-image-slot-desktop');
 
                 timerId = setInterval(function() {
                     if (!isBannerWallpaperMode()) { stopCarousel(); return; }
@@ -643,7 +626,7 @@ const bannerCarouselInterval = Math.max(
             });
 
             window.addEventListener('wallpaperModeChange', function(e) {
-                if (e.detail && e.detail.mode === 'banner') {
+                if (e.detail && (e.detail.mode === 'banner' || e.detail.mode === 'fullscreen')) {
                     if (isCarouselEnabled()) startCarousel();
                 } else {
                     stopCarousel();
@@ -651,6 +634,13 @@ const bannerCarouselInterval = Math.max(
             });
 
             startCarousel();
+
+            document.addEventListener('swup:contentReplaced', function() {
+                setTimeout(function() {
+                    container = document.getElementById('banner-images-container');
+                    if (container) startCarousel();
+                }, 150);
+            });
         })();
     </script>
     
@@ -757,14 +747,6 @@ const bannerCarouselInterval = Math.max(
                                 <Icon is:inline name="material-symbols:ink-pen-outline-rounded" class="text-[1.05em]" />
                                 <span>
                                     {bannerPostMeta.words} {i18n(bannerPostMeta.words === 1 ? I18nKey.wordCount : I18nKey.wordsCount)}
-                                </span>
-                            </span>
-                        )}
-                        {typeof bannerPostMeta.minutes === "number" && (
-                            <span class="inline-flex items-center gap-1.5">
-                                <Icon is:inline name="material-symbols:schedule-outline-rounded" class="text-[1.05em]" />
-                                <span>
-                                    {bannerPostMeta.minutes} {i18n(bannerPostMeta.minutes === 1 ? I18nKey.minuteCount : I18nKey.minutesCount)} · {i18n(I18nKey.readTime)}
                                 </span>
                             </span>
                         )}

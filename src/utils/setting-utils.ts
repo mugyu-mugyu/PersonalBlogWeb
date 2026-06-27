@@ -13,8 +13,7 @@ import type { LIGHT_DARK_MODE, WALLPAPER_MODE } from "@/types/config";
 import {
 	backgroundWallpaper,
 	expressiveCodeConfig,
-	sakuraConfig,
-	siteConfig,
+		siteConfig,
 } from "../config";
 import { isHomePage as checkIsHomePage } from "./layout-utils";
 
@@ -298,18 +297,18 @@ export function applyWallpaperModeToDocument(
 		return;
 	}
 
-	// 如果模式没有变化，直接返回
+	// 如果模式没有变化，确保UI状态正确并返回
 	if (currentMode === mode) {
-		// 即使是相同模式，也要确保UI状态正确
 		ensureWallpaperState(mode);
 		return;
 	}
 
+	// 总是强制执行壁纸切换（修复全屏模式切换无效）
+	document.documentElement.setAttribute("data-wallpaper-mode", mode);
+
 	// 添加过渡保护类
 	document.documentElement.classList.add("is-wallpaper-transitioning");
 
-	// 更新数据属性
-	document.documentElement.setAttribute("data-wallpaper-mode", mode);
 
 	// 使用 requestAnimationFrame 确保在下一帧执行，避免闪屏
 	requestAnimationFrame(() => {
@@ -486,7 +485,7 @@ function showBannerMode(animate = false) {
 	}
 }
 
-function showFullscreenMode(animate = false) {
+function showFullscreenMode(_animate = false) {
 	// 显示 wallpaper-wrapper 并切换为全屏壁纸模式
 	const wallpaperWrapper = document.getElementById("wallpaper-wrapper");
 	const isMobile = window.innerWidth < 1024;
@@ -523,24 +522,15 @@ function showFullscreenMode(animate = false) {
 		const homeTextEnabled = backgroundWallpaper.common?.homeText?.enable;
 		if (homeTextEnabled && isHomePage) {
 			bannerTextOverlay.classList.remove("hidden");
-			if (animate) {
-				// 横幅文字跟随下移：wrapper已瞬间变为100vh，文字flex居中在50vh
-				// 先用-17.5vh补偿到横幅位置(32.5vh)，再过渡到0(全屏居中50vh)
-				bannerTextOverlay.style.transition = "none";
-				bannerTextOverlay.style.transform = "translateY(-17.5vh)";
-				requestAnimationFrame(() => {
-					bannerTextOverlay.style.transition =
-						"transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94)";
-					bannerTextOverlay.style.transform = "translateY(0)";
-				});
-			}
+			bannerTextOverlay.style.transform = "";
+			bannerTextOverlay.style.transition = ""
 		} else {
 			bannerTextOverlay.classList.add("hidden");
 		}
 	}
 
 	// 调整主内容位置
-	adjustMainContentPosition("fullscreen", animate);
+	adjustMainContentPosition("fullscreen", false);
 
 	// 移除透明效果（全屏壁纸模式不使用半透明）
 	adjustMainContentTransparency(false);
@@ -1148,36 +1138,10 @@ export function applyGradientEnabledToDocument(enabled: boolean): void {
 	}
 }
 
-// Sakura effect functions
-export function getDefaultSakuraEnabled(): boolean {
-	return sakuraConfig?.enable ?? false;
-}
-
-export function getStoredSakuraEnabled(): boolean {
-	if (typeof localStorage === "undefined") {
-		return getDefaultSakuraEnabled();
-	}
-	const stored = localStorage.getItem("sakuraEnabled");
-	if (stored === null) {
-		return getDefaultSakuraEnabled();
-	}
-	return stored === "true";
-}
-
-export function setSakuraEnabled(enabled: boolean): void {
-	if (
-		typeof localStorage === "undefined" ||
-		typeof localStorage.setItem !== "function"
-	) {
-		return;
-	}
-	localStorage.setItem("sakuraEnabled", String(enabled));
-	document.documentElement.setAttribute("data-sakura-enabled", String(enabled));
-	// 实时切换樱花特效
-	window.dispatchEvent(
-		new CustomEvent("sakuraToggle", { detail: { enabled } }),
-	);
-}
+// Sakura stub functions (特效已禁用)
+export function getDefaultSakuraEnabled(): boolean { return false; }
+export function getStoredSakuraEnabled(): boolean { return false; }
+export function setSakuraEnabled(_enabled: boolean): void {}
 
 // Banner title functions
 export function getDefaultBannerTitleEnabled(): boolean {

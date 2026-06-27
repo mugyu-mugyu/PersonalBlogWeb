@@ -586,28 +586,20 @@ const siteLang = lang.replace("_", "-");
     <!-- Fancybox Manager -->
     <FancyboxManager />
 
-<script is:inline>
-  (function() {
-    var PREFIX = "blog-views-";
-    var path = location.pathname;
-    var parts = path.split("/");
-    if (parts[1] === "posts" && parts[2]) {
-      var k = PREFIX + parts[2];
-      var n = parseInt(localStorage.getItem(k) || "0", 10) + 1;
-      localStorage.setItem(k, String(n));
-    }
-    function show() {
-      document.querySelectorAll(".page-view-count-text[data-post-id]").forEach(function(el) {
-        var pid = el.getAttribute("data-post-id");
-        if (!pid) return;
-        el.textContent = (parseInt(localStorage.getItem(PREFIX + pid) || "0", 10)) + " 次阅读";
+  <script is:inline>
+      // Swup 导航后恢复显示设置
+      document.addEventListener("swup:contentReplaced", function() {
+        var enabled = localStorage.getItem("bannerTitleEnabled");
+        if (enabled !== null) {
+          document.documentElement.setAttribute("data-banner-title-enabled", enabled);
+        }
+        var ct = localStorage.getItem("bannerCarouselEnabled");
+        if (ct !== null) {
+          document.documentElement.setAttribute("data-banner-carousel-enabled", ct);
+        }
       });
-    }
-    show();
-    document.addEventListener("swup:contentReplaced", function() { setTimeout(show, 50); });
-  })();
-</script>
-  </body>
+    </script>
+</body>
 </html>
 
 <style
@@ -1634,7 +1626,7 @@ function disableAnimation() {
   }
 
   // Initialize wallpaper mode
-  import { initWallpaperMode, initThemeListener } from "@/utils/setting-utils";
+  import { initWallpaperMode, initThemeListener, applyWallpaperModeToDocument, getStoredWallpaperMode } from "@/utils/setting-utils";
   import { initIconLoader } from "@/utils/icon-loader";
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", () => {
@@ -1651,6 +1643,13 @@ function disableAnimation() {
     initThemeListener();
     initIconLoader();
   }
+
+  // Swup 导航后恢复壁纸模式
+  document.addEventListener("swup:contentReplaced", () => {
+    setTimeout(() => {
+      applyWallpaperModeToDocument(getStoredWallpaperMode(), false);
+    }, 100);
+  });
 
   // LQIP fade-in：图片加载完成后淡出占位渐变
   function initImageLoadFadeIn() {
