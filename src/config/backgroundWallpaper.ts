@@ -50,14 +50,16 @@ export const backgroundWallpaper: BackgroundWallpaperConfig = {
 		// 移动背景图片（支持单张或多张随机）
 		// mobile: "assets/images/MobileWallpaper/m1.avif",
 		mobile: [
-			"assets/images/MobileWallpaper/m1.avif",
-			"assets/images/MobileWallpaper/m2.avif",
-			"assets/images/MobileWallpaper/m3.avif",
-			"assets/images/MobileWallpaper/m4.avif",
-			"assets/images/MobileWallpaper/m5.avif",
-			"assets/images/MobileWallpaper/m6.avif",
-            "assets/images/MobileWallpaper/m7.avif",
-		],
+			"https://image.whutwsf.top/file/崩坏：星穹铁道/长夜月/1782547860973_illust_144140075_20260627_041208.png",
+			"https://image.whutwsf.top/file/崩坏：星穹铁道/知更鸟/1782547410545_illust_144267756_20260627_041254.png",
+			"https://image.whutwsf.top/file/崩坏：星穹铁道/知更鸟/1782547389289_1782516214306.png",
+			"https://image.whutwsf.top/file/崩坏：星穹铁道/知更鸟/1782547339977_1.png",
+			"https://image.whutwsf.top/file/崩坏：星穹铁道/知更鸟/1782547407521_illust_144267756_20260627_041301.png",
+			"https://image.whutwsf.top/file/崩坏：星穹铁道/流萤/1782539256877_14.jpeg",
+            "https://image.whutwsf.top/file/崩坏：星穹铁道/流萤/1782539180314_132752168_p3.png",
+            "https://image.whutwsf.top/file/崩坏：星穹铁道/流萤/1782539180836_132752168_p1.png",
+            "https://image.whutwsf.top/file/崩坏：星穹铁道/流萤/1782539266946_15.png",
+        ],
 		// 背景视频播放地址
 		// 支持单个视频路径（字符串）或多个视频循环（数组）
 		// 支持远程视频URL，本地视频请放在 public/assets/videos/ 目录下
