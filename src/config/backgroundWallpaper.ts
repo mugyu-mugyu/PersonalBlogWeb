@@ -43,9 +43,20 @@ export const backgroundWallpaper: BackgroundWallpaperConfig = {
 		// 桌面背景图片（支持单张或多张随机）
 		// desktop: "assets/images/DesktopWallpaper/d1.avif",
 		desktop: [
-			"assets/images/DesktopWallpaper/d1.avif",
-			"assets/images/DesktopWallpaper/d2.avif",
-            "assets/images/DesktopWallpaper/d3.avif",
+			"https://image.whutwsf.top/file/横屏/1782585257170_125208378_p1_master1200.jpg",
+			"https://image.whutwsf.top/file/横屏/1782585257321_125208378_p2_master1200.jpg",
+            "https://image.whutwsf.top/file/横屏/1782585253201_125208378_p0_master1200.jpg",
+            "https://image.whutwsf.top/file/横屏/1782545887831_1782409704663.jpeg",
+            "https://image.whutwsf.top/file/横屏/1782539764868_1782521634504.png",
+            "https://image.whutwsf.top/file/横屏/1782539763707_illust_138746537_20260627_041507.png",
+            "https://image.whutwsf.top/file/横屏/1782539764337_1782522408775.jpeg",
+            "https://image.whutwsf.top/file/横屏/1782539758505_1782505750563.jpeg",
+            "https://image.whutwsf.top/file/横屏/1782539294427_137934497_p2__1_.png",
+            "https://image.whutwsf.top/file/横屏/1782539294198_137934497_p0__1_.png",
+            "https://image.whutwsf.top/file/横屏/1782500899666_1782089637460.png",
+            "https://image.whutwsf.top/file/横屏/1782500892866_1782089644282.png",
+            "https://image.whutwsf.top/file/横屏/1782500848333_1782089631172.png",
+            "https://image.whutwsf.top/file/横屏/1782500900049_1782089639357.png",
 		],
 		// 移动背景图片（支持单张或多张随机）
 		// mobile: "assets/images/MobileWallpaper/m1.avif",
